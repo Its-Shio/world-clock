@@ -8,6 +8,11 @@ let NYCityElement = document.querySelector("#newYork");
 let NYDate = NYCityElement.querySelector(".date");
 let NYTime = NYCityElement.querySelector(".time");
 
+let DVCityElement = document.querySelector("#denver");
+
+let DVDate = DVCityElement.querySelector(".date");
+let DVTime = DVCityElement.querySelector(".time");
+
 function setTime() {
   if (LACityElement) {
     let LATimeZone = moment().tz("America/Los_Angeles");
@@ -24,9 +29,19 @@ function setTime() {
       "h:mm:ss"
     )} <small>${NYTimeZone.format("A")}</small>`;
   }
+  if (DVCityElement) {
+    let DVTimeZone = moment().tz("America/Denver");
+    DVDate.innerHTML = DVTimeZone.format("MMMM Do, YYYY");
+    DVTime.innerHTML = `${DVTimeZone.format(
+      "h:mm:ss"
+    )} <small>${DVTimeZone.format("A")}</small>`;
+  }
 }
 
 function selectCity(event) {
+  if (event.target.value === "default") {
+    return;
+  }
   let cityTimeZone = event.target.value;
   if (cityTimeZone === "current") {
     cityTimeZone = moment.tz.guess();
@@ -44,7 +59,8 @@ function selectCity(event) {
     <div class="time">${cityTime.format("h:mm:ss")} <small>${cityTime.format(
     "A"
   )}</small></div>
-  </div>`;
+  </div>
+  <a href="index.html">Return to Home</a>`;
 }
 
 let citySelect = document.querySelector("#citySelect");
